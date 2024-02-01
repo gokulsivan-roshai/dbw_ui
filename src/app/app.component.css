@@ -1,0 +1,250 @@
+.frame {
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.frame .UI-wrapper {
+    width: 1280px;
+    height: 720px;
+}
+
+.frame .UI {
+    height: 720px;
+}
+
+.frame .overlap-wrapper {
+    position: relative;
+    width: 1280px;
+    height: 728px;
+    top: -8px;
+}
+
+.frame .overlap {
+    position: relative;
+    height: 728px;
+}
+
+.frame .background {
+    position: absolute;
+    width: 1280px;
+    height: 720px;
+    top: 8px;
+    left: 0;
+    background-color: #fffefe;
+    border: 3px solid;
+    border-color: #000000;
+}
+
+.frame .navbar {
+    position: absolute;
+    width: 673px;
+    height: 32px;
+    top: 31px;
+    left: 581px;
+}
+
+.frame .version {
+    width: 118px;
+    left: 545px;
+    position: absolute;
+    top: 0;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #00000069;
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.frame .ipaddr {
+    width: 178px;
+    left: 343px;
+    position: absolute;
+    top: 0;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #00000069;
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.frame .vehice-make {
+    position: absolute;
+    width: 106px;
+    top: 0;
+    left: 213px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #00000069;
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.frame .joy-avmode {
+    width: 70px;
+    left: 119px;
+    position: absolute;
+    top: 0;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #00000069;
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.frame .state {
+    width: 87px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #00000069;
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.frame .rectangle {
+    width: 142px;
+    height: 68px;
+    left: 19px;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+}
+
+.frame .brakes {
+    position: absolute;
+    width: 200px;
+    height: 221px;
+    top: 417px;
+    left: 946px;
+}
+
+.frame .img {
+    width: 198px;
+    height: 171px;
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+
+.frame .text-wrapper {
+    position: absolute;
+    width: 81px;
+    top: 188px;
+    left: 23px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #1e1e1e;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.frame .accelerator {
+    position: absolute;
+    width: 200px;
+    height: 187px;
+    top: 146px;
+    left: 946px;
+}
+
+.frame .overlap-group {
+    position: relative;
+    width: 198px;
+    height: 187px;
+}
+
+.frame .rectangle-2 {
+    position: absolute;
+    width: 198px;
+    height: 171px;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+}
+
+.frame .div {
+    position: absolute;
+    width: 62px;
+    top: 154px;
+    left: 27px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #1e1e1e;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.frame .steering {
+    position: absolute;
+    width: 373px;
+    height: 400px;
+    top: 221px;
+    left: 439px;
+}
+
+.frame .rectangle-3 {
+    width: 371px;
+    height: 350px;
+    left: 0;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+}
+
+.frame .text-wrapper-2 {
+    position: absolute;
+    width: 120px;
+    top: 367px;
+    left: 80px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #1e1e1e;
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.frame .ERRORCODE {
+    position: absolute;
+    width: 194px;
+    height: 32px;
+    top: 661px;
+    left: 41px;
+}
+
+.frame .text-wrapper-3 {
+    position: absolute;
+    width: 70px;
+    top: 0;
+    left: 0;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #ff002d;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.frame .text-wrapper-4 {
+    position: absolute;
+    width: 70px;
+    top: 0;
+    left: 120px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #ff002d;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+}
