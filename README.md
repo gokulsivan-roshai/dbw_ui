@@ -2,6 +2,13 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.1.
 
+## Pre-requisites
+Run `npm install` for installing the required node modules
+Run the DBW system code
+Go to source for ros and install rosbridge_websocket by running `sudo apt-get install ros-<rosdistro>-rosbridge-server`
+After installation run `ros2 launch rosbridge_server rosbridge_websocket_launch.xml` to launch rosbridge-websocket
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
