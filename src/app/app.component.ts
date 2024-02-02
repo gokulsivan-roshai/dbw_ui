@@ -12,7 +12,7 @@ export class AppComponent {
   title = 'dbw_ui';
   acceleratorData : any ='0%';
   brakeData : any ='0%';
-  steeringData :any ='0°';
+  steeringData :any ='0°';  
   stateDBW : any ='STATE';
   modeDBW : any ='J/V';
   rosData: string = '';
@@ -32,10 +32,12 @@ export class AppComponent {
   otherTopic: any;
   batteryPercentTopic: any;
   batteryPercentage :any;
+  imagesrc: string;
+  chargePercent: any ="0";
   
 
   ngOnInit(): void {
-    this.ros = new Ros();
+    this.ros = new ROSLIB.Ros({});
     this.ros.autoConnect = false;
     
     this.ros.connect('ws://192.168.1.154:9090');
@@ -50,37 +52,37 @@ export class AppComponent {
 
     this.accTopic = new ROSLIB.Topic({
       ros: this.ros,
-      name: '/accelerator_pedal_report',
+      name: '/accelerator_pedal_report',    //New topic object for accelerator
       messageType: 'roshai_dbw_interface/msg/AcceleratorPedalReport',
     })
     this.brakeTopic = new ROSLIB.Topic({
       ros: this.ros,
-      name: '/brake_report',
+      name: '/brake_report',                 //New topic object for brakes
       messageType: 'roshai_dbw_interface/msg/BrakeReport',
     })
     this.steerTopic = new Topic({
       ros: this.ros,
-      name: '/steering_report', 
+      name: '/steering_report',             //New topic object for steering
       messageType: 'roshai_dbw_interface/msg/SteeringReport',
     })
     this.dbModeTopic= new ROSLIB.Topic({
       ros: this.ros,
-      name: '/dbw_mode', 
+      name: '/dbw_mode',                     //New topic object for dbwMode  
       messageType: 'roshai_dbw_interface/msg/SystemMode',
     })
     this.topicState = new ROSLIB.Topic({
       ros: this.ros,
-      name: '/dni_interface', 
+      name: '/dni_interface',                 //New topic object for dbwState
       messageType: 'roshai_dbw_interface/msg/DriverNotificationInterface',
     })
     this.otherTopic = new Topic({
       ros: this.ros,
-      name: '/heart_pulse_report', //add topic
+      name: '/heart_pulse_report',             //New topic object for others- errors, ipaddress, version, vehiclemodel
       messageType: 'roshai_dbw_interface/msg/HeartPulseReport',
     })
     this.batteryPercentTopic = new ROSLIB.Topic({
       ros: this.ros,
-      name: '/bms_data_soc', 
+      name: '/bms_data_soc',                    //New topic object for battery percentage and ifCharging(need to implement)
       messageType: 'roshai_dbw_interface/msg/BmsSoc',
     })
    
@@ -102,61 +104,31 @@ export class AppComponent {
     this.getSteeringData;
     this.getOtherCodes;
   }
-  // private subscribeToTopic(topicName: string, callback: (data: any) => void): void {
-  //   const topic = new Topic({
-  //     ros: this.ros,
-  //     name: topicName,
-  //     messageType: 'std_msgs/msg/Float64',
-  //   });
 
-  //   topic.subscribe(callback);
-  // }
 
-  getAcceleratorData() {
+  getAcceleratorData() {              //accelerator
     console.log('going acc')
     this.accTopic.subscribe((message: any) =>  {
       console.log('acclerator: '+message.position_target)
-        this.acceleratorData= message.position_target + '%'
+        this.acceleratorData= parseFloat((message.position_target).toFixed(2)) + '%'
     });
   }
-  getBrakeData(){
+  getBrakeData(){                    //Brake
     console.log('going brake')
     this.brakeTopic.subscribe((message: any) => {
-      // console.log('brakeData: '+message)
-      // try {
-      //   if (message && message.data) {
-          this.brakeData = message.position_target+ '%';
-    //     } else {
-    //       throw new Error('Unexpected message format');
-    //     }
-    //   } catch (error) {
-    //     console.error('Error processing message:', error);
-    //   }
+          this.brakeData =  parseFloat((message.position_target).toFixed(2)) + '%';
     });
   }
   getSteeringData(){
     this.steerTopic.subscribe((message: any) => { 
       console.log('steeringData: '+message)
-          this.steeringData = message.position_target+ '°'; 
+          this.steeringData =  parseFloat((message.position_target).toFixed(2)) + '°'; 
     });
   }
-  getDBWMode(){
+  getDBWMode(){                     //DBWMode
     console.log("dbw")
     this.dbModeTopic.subscribe((message: any) => 
-    {
-      // if(message.dbw_mode==0){
-      //   this.modeDBW = 'WAIT';
-      // }
-      // else if(message.dbw_mode==1){
-      //   this.modeDBW = "AV"
-      // }
-      // else if(message.dbw_mode==2){
-      //   this.modeDBW = "JOY"
-      // }
-      // else {
-      //   this.modeDBW = "NONE"
-      // }
-      
+    {     
       switch(message.dbw_mode){
         case 0:
           this.modeDBW = 'WAIT';
@@ -170,12 +142,11 @@ export class AppComponent {
         default:
             this.modeDBW = '---'
             break;
-      }
-         
+      }         
     });
   }
 
-  getState(){   
+  getState(){                       //State
     this.topicState.subscribe((message: any) => {  
       console.log('stateDBW: '+ message)
       switch(message.state_code) {
@@ -232,22 +203,13 @@ export class AppComponent {
           default:
             this.stateDBW = '---'
             break;
- 
-      }
-      
-      
-
-
-    
+      } 
     });
   }
 
 
-  getOtherCodes(){
+  getOtherCodes(){                 //errors, ipaddress, version, vehiclemodel
     this.otherTopic.subscribe((message: any) => {
-      console.log('getOtherCodes: '+message)
-      // try {
-      //   if (message && message.data) {
         this.nerr=this.iferr='';
           this.makeCar = message.dbw_vehiclemodel;
           this.ipAddr = message.dbw_ip;
@@ -260,21 +222,27 @@ export class AppComponent {
           }    
     });  
   }
-  getBatteryLevel(){
-    this.batteryPercentTopic.subscribe((message: any) => { 
-      this.batteryPercentage=message.battery_stateofcharge
-        console.log(message.battery_stateofcharge)
-
+  getBatteryLevel(){              //BatteryLevel
+    this.batteryPercentTopic.subscribe((message: any) => {
+      if(message.battery_stateofcharge>80){
+        this.imagesrc= '../assets/batteryfull.png'; 
+      }
+      else if(message.battery_stateofcharge<80 && message.battery_stateofcharge>60){
+        this.imagesrc= '../assets/battery6080.png';
+      }
+      else if(message.battery_stateofcharge<60 && message.battery_stateofcharge>40){
+        this.imagesrc= '../assets/batteryhalf.png';
+      }
+      else if(message.battery_stateofcharge<40 && message.battery_stateofcharge>20){
+        this.imagesrc= '../assets/battery2040.png';
+      }
+      else if(message.battery_stateofcharge<20){
+        this.imagesrc= '../assets/batterylow.png';
+      }
+      else {
+        this.imagesrc = '../assets/default.png';
+      }
+      this.chargePercent = message.battery_stateofcharge + "%";
      })
   } 
 }
-// }
-
-
-// Topics: 
-// /steering_report
-// /brake_report
-// /heart_pulse_report
-// /dbw_state
-// /dbw_mode
-// /accelerator_pedal_report

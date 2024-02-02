@@ -43,7 +43,26 @@
     width: 673px;
     height: 32px;
     top: 31px;
-    left: 581px;
+    left: 401px;
+}
+
+.frame .rectangle-5{
+    position: absolute;
+    left: 780px;
+    object-fit: cover;
+}
+.frame .text-wrapper-battery{
+    width: 50px;
+    left: 0;
+    position: absolute;
+    top: 10px;
+    left: 740px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #00000069;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: normal;
 }
 
 .frame .version {
@@ -247,4 +266,24 @@
     font-size: 20px;
     letter-spacing: 0;
     line-height: normal;
+}
+.frame .versionDetails {
+    position: absolute;
+    width: 80px;
+    height: 32px;
+    top: 680px;
+    left: 1159px;
+}
+.frame .text-wrapper-5{
+    width: 150px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #00000069;
+    font-size: 16x;
+    letter-spacing: 0;
+    line-height: normal;
+
 }
