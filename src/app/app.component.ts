@@ -5,10 +5,10 @@ Copyright 2024 RoshAI Pvt Ltd.
  * This file is part of AutoDrive2.0.
  * 
  * AutoDrive2.0 can not be copied and/or distributed without the express
- * permission of {name}
-File Name: app.component.ts
-File Version: v 1.2
-Purpose: UI for complimenting  DBW system with a UI console. Getting live data from DBW systems
+ * permission of RoshAI Pvt Ltd.
+ *File Name: app.component.ts
+ *File Version: v 1.2
+ *Purpose: UI for complimenting  DBW system with a UI console. Getting live data from DBW systems
 
 
 Author: Gokul Sivan P
@@ -63,7 +63,7 @@ export class AppComponent {
     this.ros = new ROSLIB.Ros({});
     this.ros.autoConnect = false;
     
-    this.ros.connect('ws://192.168.1.154:9090');
+    this.ros.connect('ws://127.0.0.1:9090');
     this.ros.on('connection', function () {
       console.log('Connected!')
      
@@ -247,25 +247,30 @@ export class AppComponent {
   }
   getBatteryLevel(){              //BatteryLevel
     this.batteryPercentTopic.subscribe((message: any) => {
-      if(message.battery_stateofcharge>80){
-        this.imagesrc= '../assets/batteryfull.png'; 
+      if(message.battery_chargerconnect='0'){
+          if(message.battery_stateofcharge>80){
+            this.imagesrc= '../assets/batteryfull.png'; 
+          }
+          else if(message.battery_stateofcharge<80 && message.battery_stateofcharge>60){
+            this.imagesrc= '../assets/battery6080.png';
+          }
+          else if(message.battery_stateofcharge<60 && message.battery_stateofcharge>40){
+            this.imagesrc= '../assets/batteryhalf.png';
+          }
+          else if(message.battery_stateofcharge<40 && message.battery_stateofcharge>20){
+            this.imagesrc= '../assets/battery2040.png';
+          }
+          else if(message.battery_stateofcharge<20){
+            this.imagesrc= '../assets/batterylow.png';
+          }
+          else {
+            this.imagesrc = '../assets/default.png';
+          }
+        }
+      else{
+          this.imagesrc ='../assets/batterycharge.png'
       }
-      else if(message.battery_stateofcharge<80 && message.battery_stateofcharge>60){
-        this.imagesrc= '../assets/battery6080.png';
-      }
-      else if(message.battery_stateofcharge<60 && message.battery_stateofcharge>40){
-        this.imagesrc= '../assets/batteryhalf.png';
-      }
-      else if(message.battery_stateofcharge<40 && message.battery_stateofcharge>20){
-        this.imagesrc= '../assets/battery2040.png';
-      }
-      else if(message.battery_stateofcharge<20){
-        this.imagesrc= '../assets/batterylow.png';
-      }
-      else {
-        this.imagesrc = '../assets/default.png';
-      }
-      this.chargePercent = message.battery_stateofcharge + "%";
-     })
+          this.chargePercent = message.battery_stateofcharge + "%";
+        })
   } 
 }
